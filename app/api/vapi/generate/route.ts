@@ -1,5 +1,7 @@
-import { GoogleGenAI } from "@google/genai";
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+import { google } from "@ai-sdk/google";
+import { generateText } from 'ai';
+
+// const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export async function GET() {
     return Response.json({
@@ -14,9 +16,9 @@ export async function POST(request: Request) {
     const { type, role, level, techstack, userid, amount } = await request.json();
 
     try {
-        const questions = await ai.models.generateContent({
-            model: "gemini-2.0-flash",
-            contents: `Generate ${amount} interview questions for a ${type} interview for the role of ${role} at level ${level} with a focus on ${techstack}. The questions should be tailored to assess the candidate's skills and experience in ${techstack}. Return the questions in a JSON format with each question having an "id" and "question" property.`
+        const { text: questions } = await generateText({
+            model: google("gemini-1.5-flash"),
+            prompt: `Generate ${amount} interview questions for a ${type} interview for the role of ${role} at level ${level} with a focus on ${techstack}. The questions should be tailored to assess the candidate's skills and experience in ${techstack}. Return the questions in a JSON format with each question having an "id" and "question" property.`
 
         })
 
@@ -24,13 +26,13 @@ export async function POST(request: Request) {
             role, type, level,
             techstack: techstack.split(","),
             questions: questions,
+            userid: userid,
             finalized: true,
             createdAt: new Date().toISOString()
-
         }
 
-
         //!Wanted to store into Prisma
+
 
         return Response.json({
             success: true
