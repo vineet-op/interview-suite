@@ -1,3 +1,4 @@
+import prisma from "@/lib/prisma";
 import { google } from "@ai-sdk/google";
 import { generateText } from 'ai';
 
@@ -22,20 +23,33 @@ export async function POST(request: Request) {
 
         })
 
-        const interview = {
-            role, type, level,
-            techstack: techstack.split(","),
-            questions: questions,
-            userid: userid,
-            finalized: true,
-            createdAt: new Date().toISOString()
-        }
+        // const interview = {
+        //     role, type, level,
+        //     techstack: techstack.split(","),
+        //     questions: questions,
+        //     userid: userid,
+        //     finalized: true,
+        //     createdAt: new Date().toISOString()
+        // }
 
-        //!Wanted to store into Prisma
-
+        // Storing into Prisma
+        const interviewRecord = await prisma.interviews.create({
+            data: {
+                role,
+                type,
+                level,
+                techstack: techstack.split(","),
+                questions,
+                userid,
+                finalize: true,
+                createdAt: new Date().toISOString(),
+                amount
+            }
+        })
 
         return Response.json({
-            success: true
+            success: true,
+            interviewRecord
         }, {
             status: 200
         })
