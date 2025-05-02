@@ -5,12 +5,15 @@ import { useState } from "react";
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link";
+import Navbar from "./Navbar";
 
 export default function Homepage() {
 
     const [isHovered, setIsHovered] = useState(false)
 
     return <div className="bg-neutral-200 h-screen min-h-screen">
+        <Navbar />
         <section className="pt-24 pb-16 md:pt-32 md:pb-24">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col items-center text-center mb-12">
@@ -29,17 +32,20 @@ export default function Homepage() {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                <Button
-                                    size="lg"
-                                    className="bg-blue-600 hover:bg-blue-700 text-white shadow-md"
-                                    onMouseEnter={() => setIsHovered(true)}
-                                    onMouseLeave={() => setIsHovered(false)}
-                                >
-                                    Start Practicing Now
-                                    <motion.div animate={{ x: isHovered ? 5 : 0 }} transition={{ duration: 0.2 }}>
-                                        <ArrowRight className="ml-2 h-5 w-5" />
-                                    </motion.div>
-                                </Button>
+
+                                <Link href="/interview">
+                                    <Button
+                                        size="lg"
+                                        className="bg-blue-600 hover:bg-blue-700 text-white shadow-md"
+                                        onMouseEnter={() => setIsHovered(true)}
+                                        onMouseLeave={() => setIsHovered(false)}
+                                    >
+                                        Start Practicing Now
+                                        <motion.div animate={{ x: isHovered ? 5 : 0 }} transition={{ duration: 0.2 }}>
+                                            <ArrowRight className="ml-2 h-5 w-5" />
+                                        </motion.div>
+                                    </Button>
+                                </Link>
                             </motion.div>
                             <Button size="lg" variant="outline" className="border-slate-300">
                                 Watch Demo
@@ -47,7 +53,7 @@ export default function Homepage() {
                         </div>
                     </motion.div>
                 </div>
-            </div>
-        </section>
-    </div>
+            </div >
+        </section >
+    </div >
 }
