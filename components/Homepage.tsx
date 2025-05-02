@@ -5,7 +5,6 @@ import { useState } from "react";
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { TextAnimate } from "@/components/magicui/text-animate";
 
 export default function Homepage() {
 
@@ -19,10 +18,12 @@ export default function Homepage() {
                         <Badge className="mb-4 bg-blue-50 text-blue-600 hover:bg-blue-100">
                             Launch Promo: 30% Off First Month
                         </Badge>
-                        <TextAnimate animation="blurIn" as="h1" className="font-bold text-5xl">
-                            Ace Your Next Interview with AI-Powered Practice
-                        </TextAnimate>
-                        <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto pt-8">
+
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-slate-900">
+                            Ace Your Next Interview with <span className="text-blue-600">AI-Powered</span> Practice
+                        </h1>
+
+                        <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
                             Prep-Suite helps you land your dream job with personalized AI mock interviews, resume reviews, and
                             outreach templates.
                         </p>
