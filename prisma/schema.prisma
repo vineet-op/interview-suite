@@ -15,13 +15,12 @@ datasource db {
 }
 
 model interviews {
-  userid    String   @id @default(uuid())
-  type      String
-  role      String
-  questions String
-  level     String
-  techstack String
-  amount    String
-  finalize  Boolean?
-  createdAt DateTime
+  userid         String   @id @default(uuid())
+  username       String?
+  role           String
+  experience     String
+  jobDescription String
+  questions      String[]
+  answers        String[]
+  createdAt      DateTime @default(now())
 }
