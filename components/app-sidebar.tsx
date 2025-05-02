@@ -24,19 +24,9 @@ const items = [
         icon: Inbox,
     },
     {
-        title: "LinkedIn Optimizations",
-        url: "/linkedin",
+        title: "OutReach Templates",
+        url: "/templates",
         icon: Calendar,
-    },
-    {
-        title: "Portfolio",
-        url: "/portfolio",
-        icon: Search,
-    },
-    {
-        title: "Applications",
-        url: "/applications",
-        icon: Settings,
     },
 ]
 

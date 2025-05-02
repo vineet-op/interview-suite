@@ -1,3 +1,5 @@
+'use client'
+
 import { X } from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
@@ -8,33 +10,15 @@ import { useRouter } from "next/navigation";
 export default function Modal({ onClose }: { onClose: () => void }) {
 
     const router = useRouter()
-    const [selectedType, setselectedType] = useState('');
     const [role, setRole] = useState('');
     const [company, setCompany] = useState('');
     const [jobDescription, setJobDescription] = useState('');
 
     const GetQuestions = async () => {
-        try {
-            const response = await axios.post("http://localhost:3000/api/getquestions", {
-                role,
-                company,
-                jobDescription,
-                selectedType
-            })
-            toast('Questions generated successfully')
-        } catch (error) {
-            toast("Failed to generate questions")
-            throw new Error('Failed to generate questions');
-
-        }
-        finally {
-            console.log('Questions generation completed')
-            router.push('/interview/questions')
-        }
     }
 
     return (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
             <div className="bg-white rounded-lg w-full max-w-xl relative animate-in ease-in zoom-in duration-400">
                 <button
                     onClick={onClose}
@@ -74,23 +58,6 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                                     onChange={(e) => setJobDescription(e.target.value)}
                                     className="w-[530px] h-28 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label className="block text-sm mb-2 font-sans">Round</label>
-                            <div className="flex gap-2">
-                                {["Behavioral", "Technical", "Screening Call"].map(
-                                    (type, index) => (
-                                        <Button
-                                            key={index}
-                                            className={`font-sans text-xs bg-neutral-500 rounded-full cursor-pointer ${selectedType === type ? 'bg-blue-500 hover:bg-blue-600' : 'hover:bg-blue-500'}`}
-                                            onClick={() => setselectedType(type)}
-                                        >
-                                            {type}
-                                        </Button>
-                                    )
-                                )}
                             </div>
                         </div>
 

@@ -10,7 +10,7 @@ const page = () => {
     const [open, setOpen] = useState<boolean>(false)
 
     return (
-        <div className="w-full h-screen bg-neutral-100 pt-16 pl-10">
+        <div className="w-screen h-screen pt-16 pl-10">
             <div className="text-blue-500 font-semibold text-xl pb-16">
                 Interview Prep
             </div>
