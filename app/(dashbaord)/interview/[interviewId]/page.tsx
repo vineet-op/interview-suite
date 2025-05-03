@@ -1,5 +1,8 @@
 'use client'
+import { Questions } from '@/components/Questions';
 import React, { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+const Record = dynamic(() => import('../../../../components/Record'), { ssr: false })
 
 interface InterviewData {
     interviewId: number;
@@ -9,7 +12,7 @@ interface InterviewData {
     questions: string[];
     answers: string[];
     aiResponse: string;
-    parsedQuestions?: Array<{ // Optional parsed data
+    parsedQuestions?: Array<{
         question: string;
         answer: string;
     }>;
@@ -49,28 +52,28 @@ export default function Page({ params }: { params: { interviewId: string } }) {
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div className="text-red-500">{error}</div>;
-    if (!data) return <div>No data found</div>;
+    if (!data) return <div>No data found</div>
 
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold">{data.role} Interview</h1>
-            <p>{data.experience} years experience</p>
-
-            <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-4">Questions:</h2>
-                {data.parsedQuestions?.length ? (
-                    data.parsedQuestions.map((q, i) => (
-                        <div key={i} className="mb-6 p-4 border rounded-lg">
-                            <h3 className="font-medium">Q: {q.question}</h3>
-                            <p className="mt-2 text-gray-600 whitespace-pre-line">
-                                A: {q.answer}
-                            </p>
-                        </div>
-                    ))
-                ) : (
-                    <p>No questions available</p>
-                )}
+        <main className="flex min-h-screen w-screen flex-col items-center justify-center p-4 bg-gray-50">
+            <div className="w-full max-w-3xl">
+                <h1 className="text-3xl font-bold text-center mb-8">Let's Begin the Test</h1>
             </div>
-        </div>
+            <div className="p-6">
+                <h1 className="text-2xl font-bold">{data?.role} Interview</h1>
+                <p>{data?.experience} years experience</p>
+
+                <div className=' w-full'>
+                    <div className="mt-8 lg:w-6xl">
+                        <Questions
+                            questions={data.parsedQuestions?.map(q => q.question) || data.questions || []}
+                            initialAnswers={data.parsedQuestions?.map(q => q.answer) || data.answers || []}
+                            role={data.role}
+                        />
+                        <Record />
+                    </div>
+                </div>
+            </div>
+        </main>
     );
 }
