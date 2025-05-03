@@ -7,11 +7,13 @@ import { toast } from "sonner"
 import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea"
-import { GoogleGenAI } from "@google/genai";
 import axios from 'axios'
 
+
 export default function Modal({ onClose }: { onClose: () => void }) {
+
     const router = useRouter()
+
     const [role, setRole] = useState<string>('');
     const [experience, setExperience] = useState<string>('');
     const [jobDescription, setJobDescription] = useState<string>('');
@@ -30,21 +32,28 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                 jobDescription,
             });
 
-            const cleanResponse = (res.data.text.replace('```json', '')).replace('```', '')
+            const responseText = res?.data?.text;
+            if (responseText) {
+                const cleanText = responseText.replace('```json', '').replace('```', '').trim();
+                const parsedResponse = JSON.parse(cleanText);
 
-            if (cleanResponse) {
-                console.log(JSON.parse(cleanResponse));
-                setAiResponse(cleanResponse || [])
-            } else {
-                console.error(res.data.error);
+                // Assuming the response is an array of questions and answers
+                setAiResponse(parsedResponse || []);
+                router.push(`/interview/${parsedResponse[0]?.interviewId}`)
+                console.log("AIResponse", AiResponse);
             }
-        } catch (error) {
+        }
+
+        catch (error) {
             console.error('Error generating content:', error);
+            toast("Failed to get the data")
+
         } finally {
             setLoading(false);
             setRole("")
             setExperience("")
             setJobDescription("")
+            onClose()
         }
     }
 

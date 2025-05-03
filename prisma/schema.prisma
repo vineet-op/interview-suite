@@ -15,12 +15,13 @@ datasource db {
 }
 
 model interviews {
-  userid         String   @id @default(uuid())
+  interviewId    Int      @id @default(autoincrement())
   username       String?
   role           String
   experience     String
   jobDescription String
   questions      String[]
   answers        String[]
+  aiResponse     String
   createdAt      DateTime @default(now())
 }
