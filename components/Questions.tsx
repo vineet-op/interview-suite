@@ -3,7 +3,8 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, ArrowRight, CheckCircle, Volume } from "lucide-react"
+import { ArrowLeft, ArrowRight, Volume2 } from "lucide-react"
+import Record from "./Record"
 
 
 interface QuestionsProps {
@@ -57,29 +58,35 @@ export function Questions({ questions, initialAnswers, role }: QuestionsProps) {
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="text-xl font-medium">{questions[currentQuestionIndex]}</div>
-                <div className="min-h-[120px] p-4 rounded-md border border-gray-300">
-                    <Volume onClick={() => textToSpeech(questions[currentQuestionIndex])} />
+                <div className="min-h-[20px] p-4 rounded-md border border-gray-300 flex gap-2.5 hover:text-blue-600">
+                    <div className="font-thin cursor-pointer flex gap-2.5 ">
+                        <Volume2 onClick={() => textToSpeech(questions[currentQuestionIndex])} />
+                        Tap this icon to say the question
+                    </div>
                 </div>
             </CardContent>
             <CardFooter className="flex justify-between">
 
-
-
-                <div className="space-x-2">
+                <div className="space-x-6 w-full">
                     {allQuestionsAnswered ? (
                         <Button onClick={handleFinish} className="bg-green-600 hover:bg-green-700">
                             Finish
                         </Button>
                     ) : (
 
-                        <div className="flex gap-2 px-1 py-4 text-center items-center justify-center">
-                            <Button onClick={handlePrevious} className="flex items-center">
-                                <ArrowLeft className=" h-4 w-4" />Previos
-                            </Button>
+                        <div className="flex gap-2 px-1 py-4 text-center items-center justify-between">
+                            <div>
+                                <Record />
+                            </div>
+                            <div className=" flex gap-5">
+                                <Button onClick={handlePrevious} className="flex items-center">
+                                    <ArrowLeft className=" h-4 w-4" />Previos
+                                </Button>
 
-                            <Button onClick={handleNext} className="flex items-center">
-                                Next <ArrowRight className="h-4 w-4" />
-                            </Button>
+                                <Button onClick={handleNext} className="flex items-center">
+                                    Next <ArrowRight className="h-4 w-4" />
+                                </Button>
+                            </div>
                         </div>
                     )}
                 </div>

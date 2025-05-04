@@ -30,14 +30,8 @@ export default function Record() {
 
     return (
         <div>
-            <Button onClick={isRecording ? stopSpeechToText : startSpeechToText} className="cursor-pointer px-4 py-1 w-30 bg-green-400 text-white hover:text-black" variant={"outline"}>
+            <Button onClick={isRecording ? stopSpeechToText : startSpeechToText} className="cursor-pointer px-4 py-1 w-30 bg-green-400 text-white hover:text-black  " variant={"outline"}>
                 {isRecording ? "Recording..." : "Start Recording"}
-            </Button>
-            <div>
-                {isRecording.toString()}
-            </div>
-            <Button onClick={() => console.log(userAnswer)}>
-                Show Answers
             </Button>
         </div>
     )

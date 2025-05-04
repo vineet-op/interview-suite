@@ -70,7 +70,6 @@ export default function Page({ params }: { params: { interviewId: string } }) {
                             initialAnswers={data.parsedQuestions?.map(q => q.answer) || data.answers || []}
                             role={data.role}
                         />
-                        <Record />
                     </div>
                 </div>
             </div>
