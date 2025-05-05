@@ -1,22 +1,21 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model interviews {
-  interviewId      String   @id @default(uuid())
-  username         String?
-  role             String
-  experience       String
-  jobDescription   String
-  questions        String[]
-  answers          String[]
-  aiResponse       String
-  feedbackResponse String?
-  createdAt        DateTime @default(now())
+    interviewId      String   @id @default(uuid())
+    username         String?
+    role             String
+    experience       String
+    jobDescription   String
+    questions        String[]
+    answers          String[]
+    aiResponse       String
+    feedbackResponse String?
+    createdAt        DateTime @default(now())
 }
