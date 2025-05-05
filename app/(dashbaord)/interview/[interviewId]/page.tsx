@@ -1,10 +1,10 @@
 'use client'
 import { Questions } from '@/components/Questions';
-import Record from '@/components/Record';
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
 
 interface InterviewData {
-    interviewId: number;
+    interviewId: string;
     role: string;
     experience: string;
     jobDescription: string;
@@ -17,7 +17,13 @@ interface InterviewData {
     }>;
 }
 
-export default function Page({ params }: { params: { interviewId: string } }) {
+
+
+export default function Page() {
+
+    const params = useParams<{interviewId:string}>()
+    console.log("params",params);
+    
     const interviewId = params.interviewId;
     const [data, setData] = useState<InterviewData | null>(null);
     const [loading, setLoading] = useState(true);

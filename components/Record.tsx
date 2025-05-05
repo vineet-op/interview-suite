@@ -65,11 +65,6 @@ export default function Record({ question, questionIndex, onAnswer, currentAnswe
             <Button onClick={handleRecording}>
                 {isRecording ? "Stop Recording" : "Start Answer"}
             </Button>
-            {userAnswer && (
-                <div className="mt-2 p-2 border rounded bg-gray-50">
-                    <strong>Transcript:</strong> {userAnswer}
-                </div>
-            )}
         </div>
     );
 }
