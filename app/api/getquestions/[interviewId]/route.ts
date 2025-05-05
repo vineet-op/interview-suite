@@ -7,10 +7,7 @@ export async function GET(
     { params }: { params: { interviewId: string } }
 ) {
     try {
-        const interviewId = parseInt(params.interviewId);
-        if (isNaN(interviewId)) {
-            return NextResponse.json({ error: "Invalid interview ID" }, { status: 400 });
-        }
+        const interviewId = await params.interviewId
 
         const interview = await prisma.interviews.findUnique({
             where: { interviewId },
@@ -27,14 +24,21 @@ export async function GET(
         if (!interview) {
             return NextResponse.json({ error: "Interview not found" }, { status: 404 });
         }
-
         // Parse the nested structure
         let parsedQuestions = [];
         try {
-            const aiData = JSON.parse(interview.aiResponse);
+            // Attempt to clean and parse the aiResponse
+            const cleanedResponse = interview.aiResponse
+                .replace(/```json/g, '')
+                .replace(/```/g, '')
+                .trim();
+
+            const aiData = JSON.parse(cleanedResponse);
             parsedQuestions = aiData.questions || [];
         } catch (e) {
             console.error("Failed to parse aiResponse:", e);
+            // Fallback to an empty array if parsing fails
+            parsedQuestions = [];
         }
 
         return NextResponse.json({

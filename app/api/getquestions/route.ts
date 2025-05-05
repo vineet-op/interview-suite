@@ -26,18 +26,36 @@ export const POST = async (req: NextRequest) => {
             contents: [{ role: 'user', parts: [{ text: prompt }] }],
         });
 
-        const responseText = result?.text || '';
-        console.log("Gemini response:", responseText);
+        const responseText = result.text || '';
+        // console.log("Gemini response:", responseText);
 
-        const cleanText = responseText.replace('```json', '').replace('```', '').trim()
+        const cleanText = responseText.replace(/```json/g, '')
+            .replace(/```/g, '')
+            .trim();
         console.log(cleanText);
+
+        // Parse the JSON response
+        let parsedResponse;
+        try {
+            parsedResponse = JSON.parse(cleanText);
+        } catch (error) {
+            console.error('Failed to parse JSON response:', error);
+            return NextResponse.json({ error: 'Invalid JSON response from AI' }, { status: 500 });
+        }
+
+        // Extract questions and answers
+        const questions = parsedResponse.questions.map((q: any) => q.question);
+        const answers = parsedResponse.questions.map((q: any) => q.answer);
 
         const interview = await prisma.interviews.create({
             data: {
+                interviewId: crypto.randomUUID(),
                 role,
                 experience,
                 jobDescription,
                 aiResponse: cleanText,
+                questions: questions,
+                answers: answers,
                 createdAt: new Date().toISOString(),
             },
         });
