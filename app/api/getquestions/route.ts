@@ -23,11 +23,11 @@ export const POST = async (req: NextRequest) => {
 
         const result = await ai.models.generateContent({
             model: 'gemini-2.0-flash',
-            contents: [{ role: 'user', parts: [{ text: prompt }] }],
+            contents: prompt,
         });
 
         const responseText = result.text || '';
-        // console.log("Gemini response:", responseText);
+        console.log("Gemini response:", responseText);
 
         const cleanText = responseText.replace(/```json/g, '')
             .replace(/```/g, '')

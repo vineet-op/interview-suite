@@ -3,9 +3,16 @@
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import useSpeechToText from 'react-hook-speech-to-text';
+import { toast } from "sonner";
 
+interface RecordProps {
+    question: string;
+    questionIndex: number;
+    onAnswer: (answer: string) => void;
+    currentAnswer: string
+}
 
-export default function Record() {
+export default function Record({ question, questionIndex, onAnswer, currentAnswer }: RecordProps) {
     const {
         error,
         interimResult,
@@ -18,21 +25,51 @@ export default function Record() {
         useLegacyResults: false
     });
 
-    const [userAnswer, setUserAnswer] = useState("")
+    const [userAnswer, setUserAnswer] = useState("");
+
+    const handleRecording = () => {
+        if (isRecording) {
+            stopSpeechToText();
+            if (userAnswer.length < 10) {
+                toast.error("Answer too short");
+                return;
+            }
+
+            onAnswer(userAnswer);
+        } else {
+            setUserAnswer("");
+            startSpeechToText();
+        }
+    };
 
     useEffect(() => {
-        results.forEach((result) => {
-            if (typeof result !== 'string') {
-                setUserAnswer(prev => prev + result.transcript)
-            }
-        })
-    }, [results])
+        setUserAnswer(currentAnswer || "");
+    }, [currentAnswer]);
+
+
+    useEffect(() => {
+        if (error) {
+            toast.error("Speech recognition error");
+        }
+    }, [error]);
+
+    useEffect(() => {
+        const fullTranscript = results
+            .map(result => typeof result === 'string' ? result : result?.transcript)
+            .join(' ');
+        setUserAnswer(fullTranscript);
+    }, [results]);
 
     return (
         <div>
-            <Button onClick={isRecording ? stopSpeechToText : startSpeechToText} className="cursor-pointer px-4 py-1 w-30 bg-green-400 text-white hover:text-black  " variant={"outline"}>
-                {isRecording ? "Recording..." : "Start Recording"}
+            <Button onClick={handleRecording}>
+                {isRecording ? "Stop Recording" : "Start Answer"}
             </Button>
+            {userAnswer && (
+                <div className="mt-2 p-2 border rounded bg-gray-50">
+                    <strong>Transcript:</strong> {userAnswer}
+                </div>
+            )}
         </div>
-    )
-}   
+    );
+}

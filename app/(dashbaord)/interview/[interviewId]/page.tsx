@@ -1,8 +1,7 @@
 'use client'
 import { Questions } from '@/components/Questions';
+import Record from '@/components/Record';
 import React, { useEffect, useState } from 'react'
-import dynamic from 'next/dynamic'
-const Record = dynamic(() => import('../../../../components/Record'), { ssr: false })
 
 interface InterviewData {
     interviewId: number;
@@ -69,6 +68,7 @@ export default function Page({ params }: { params: { interviewId: string } }) {
                             questions={data.parsedQuestions?.map(q => q.question) || data.questions || []}
                             initialAnswers={data.parsedQuestions?.map(q => q.answer) || data.answers || []}
                             role={data.role}
+                            interviewId={interviewId}
                         />
                     </div>
                 </div>
