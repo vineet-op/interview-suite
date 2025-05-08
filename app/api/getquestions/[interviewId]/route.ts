@@ -1,13 +1,13 @@
 // app/api/getquestions/[interviewId]/route.ts
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import prisma from '../../../../lib/prisma';
 
 export async function GET(
     request: Request,
     { params }: { params: { interviewId: string } }
 ) {
     try {
-        const interviewId = await params.interviewId
+        const interviewId = params.interviewId
 
         const interview = await prisma.interviews.findUnique({
             where: { interviewId },
