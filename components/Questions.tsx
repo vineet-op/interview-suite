@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, ArrowRight, Volume2 } from "lucide-react"
@@ -17,24 +17,22 @@ interface QuestionsProps {
     interviewId: string | number
 }
 
-export function Questions({ questions, initialAnswers, role, interviewId }: QuestionsProps) {
+export function Questions({ questions, initialAnswers = [], role, interviewId }: QuestionsProps) {
     const router = useRouter()
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-    const [answers, setAnswers] = useState<string[]>(initialAnswers || Array(questions.length).fill(""))
+    const [answers, setAnswers] = useState<string[]>(
+        initialAnswers.length > 0 ? initialAnswers : Array(questions.length).fill("")
+    )
     const [isGenerating, setIsGenerating] = useState(false)
+    const [recordKey, setRecordKey] = useState(0) // Key to force Record component remount
 
-    // const handleNext = () => {
-    //     if (currentQuestionIndex < questions.length - 1) {
-    //         setCurrentQuestionIndex(currentQuestionIndex + 1)
-    //     }
-    // }
+    // When question index changes, force the Record component to remount
+    useEffect(() => {
+        setRecordKey(prevKey => prevKey + 1)
+    }, [currentQuestionIndex])
 
     const handleNext = () => {
         if (currentQuestionIndex < questions.length - 1) {
-            // If the current answer is too short, set it to empty
-            if (!answers[currentQuestionIndex] || answers[currentQuestionIndex].length < 10) {
-                handleAnswerSave("", currentQuestionIndex);
-            }
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         }
     };
@@ -45,10 +43,11 @@ export function Questions({ questions, initialAnswers, role, interviewId }: Ques
         }
     }
 
-    const handleAnswerSave = (answer: string, index: number) => {
+    const handleAnswerSave = (answer: string) => {
         const newAnswers = [...answers]
-        newAnswers[index] = answer
+        newAnswers[currentQuestionIndex] = answer
         setAnswers(newAnswers)
+        console.log(`Saving answer for question ${currentQuestionIndex + 1}:`, answer);
     }
 
     // Make sure your API key is properly configured in your environment
@@ -82,8 +81,6 @@ export function Questions({ questions, initialAnswers, role, interviewId }: Ques
                 ${questions.map((q, i) => `Q: ${q}\nA: ${answers[i] || 'No answer'}`).join('\n\n')}
             `
 
-            console.log("Sending prompt to Gemini:", prompt);
-
             const response = await ai.models.generateContent({
                 model: "gemini-2.0-flash",
                 contents: [{ role: 'user', parts: [{ text: prompt }] }]
@@ -101,6 +98,8 @@ export function Questions({ questions, initialAnswers, role, interviewId }: Ques
 
             // Try to find JSON in the response if it's not properly formatted
             let jsonMatch = cleanResponse.match(/(\{[\s\S]*\})/);
+            console.log("jsonMatch", jsonMatch);
+
             if (jsonMatch) {
                 cleanResponse = jsonMatch[0];
             }
@@ -109,7 +108,7 @@ export function Questions({ questions, initialAnswers, role, interviewId }: Ques
 
             let feedback;
             try {
-                feedback = JSON.parse(cleanResponse);
+                feedback = await JSON.parse(cleanResponse);
                 console.log("Parsed feedback:", feedback);
             } catch (parseError) {
                 console.error("Failed to parse JSON:", parseError);
@@ -146,8 +145,6 @@ export function Questions({ questions, initialAnswers, role, interviewId }: Ques
         }
     }
 
-    const allQuestionsAnswered = answers.every(ans => ans && ans.length > 10)
-
     function textToSpeech(text: string) {
         if ('speechSynthesis' in window) {
             const speech = new SpeechSynthesisUtterance(text)
@@ -179,19 +176,17 @@ export function Questions({ questions, initialAnswers, role, interviewId }: Ques
             </CardContent>
             <CardFooter className="flex justify-between">
                 <div className="space-x-6 w-full">
-                    {currentQuestionIndex === questions.length - 1 && allQuestionsAnswered ? (
-                        <Button onClick={handleFinish} disabled={isGenerating} className="bg-green-600 hover:bg-green-700">
+                    {currentQuestionIndex === questions.length - 1 ? (
+                        <Button onClick={handleFinish} className="bg-green-600 hover:bg-green-700">
                             {isGenerating ? "Generating..." : "Finish"}
                         </Button>
                     ) : (
                         <div className="flex gap-2 px-1 py-4 text-center items-center justify-between">
                             <div>
-                                {/* Record */}
+                                {/* Use a key to force remount when question changes */}
                                 <Record
-                                    question={questions[currentQuestionIndex]}
-                                    questionIndex={currentQuestionIndex}
-                                    onAnswer={(ans) => handleAnswerSave(ans, currentQuestionIndex)}
-                                    currentAnswer={answers[currentQuestionIndex]}
+                                    key={recordKey}
+                                    onAnswer={handleAnswerSave}
                                 />
                             </div>
                             <div className="flex gap-5">

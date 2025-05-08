@@ -27,7 +27,7 @@ export const POST = async (req: NextRequest) => {
         });
 
         const responseText = result.text || '';
-        console.log("Gemini response:", responseText);
+
 
         const cleanText = responseText.replace(/```json/g, '')
             .replace(/```/g, '')

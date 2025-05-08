@@ -7,8 +7,6 @@ import { motion } from "framer-motion"
 
 const Hero = () => {
 
-
-
     return (
         <section id="home" className="py-24 relative overflow-hidden ">
             <div className="absolute inset-0 bg-gradient-to-b from-teal-900/20 to-gray-950/0 pointer-events-none"></div>
@@ -27,13 +25,13 @@ const Hero = () => {
                         <span className="flex h-2 w-2 rounded-full bg-teal-400 mr-2"></span>
                         AI-Powered Mock Interview
                     </div>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white font-sans">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight text-white font-sans">
                         Ace Your Next{" "}
                         <span className="underline decoration-wavy decoration-teal-500 ">
                             Interview
                         </span>{" "}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-teal-200 block">
-                            Prep-Suite
+                            <span className="text-white">with</span> Prep-Suite
                         </span>
                     </h1>
                     <p className="text-xl font-sans text-gray-400">
@@ -44,7 +42,7 @@ const Hero = () => {
                         <SignInButton mode="modal" forceRedirectUrl="/interview">
                             <Button
                                 size="sm"
-                                className="bg-gradient-to-r from-teal-500 font-sans to-teal-400 hover:from-teal-400 hover:to-teal-700 text-white text-lg py-6 px-8 rounded-xl border-0 cursor-pointer"
+                                className="bg-gradient-to-r from-teal-500 font-sans text-black to-teal-400 hover:from-teal-400 hover:to-teal-700 text-lg py-6 px-8 rounded-xl border-0 cursor-pointer"
                             >
                                 Start Practicing Now
                                 <motion.div transition={{ duration: 0.3 }}>
