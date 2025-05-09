@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
-import prisma from "../../../lib/prisma";
-
+import prisma from "@/lib/prisma"
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY!,
