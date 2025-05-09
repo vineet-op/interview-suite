@@ -34,19 +34,19 @@ const items = [
 
 export function AppSidebar() {
     return (
-        <>
+        <div>
             <Sidebar>
-                <SidebarContent>
-                    <SidebarGroup >
-                        <SidebarGroupLabel className="font-bold text-blue-400 text-base">Prep-Suite</SidebarGroupLabel>
-                        <SidebarGroupContent className="mt-2">
+                <SidebarContent className="border-b border-gray-800 bg-gray-950">
+                    <SidebarGroup>
+                        <SidebarGroupLabel className="font-bold text-teal-500 font-sans text-xl">Prep-Suite</SidebarGroupLabel>
+                        <SidebarGroupContent className="mt-5">
                             <SidebarMenu className="flex flex-col gap-5">
                                 {items.map((item) => (
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton asChild>
                                             <a href={item.url}>
-                                                <item.icon />
-                                                <span>{item.title}</span>
+                                                <item.icon className="text-teal-300" />
+                                                <span className="font-sans text-teal-300">{item.title}</span>
                                             </a>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
@@ -59,6 +59,6 @@ export function AppSidebar() {
                     </div>
                 </SidebarContent >
             </Sidebar >
-        </>
+        </div>
     )
 }

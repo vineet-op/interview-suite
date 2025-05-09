@@ -57,7 +57,7 @@ export default function Modal({ onClose }: { onClose: () => void }) {
 
     return (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg w-full max-w-xl relative animate-in ease-in zoom-in duration-400">
+            <div className="bg-gray-950 rounded-lg w-full max-w-xl relative animate-in ease-in zoom-in duration-400 border border-teal-600">
                 <button
                     onClick={onClose}
                     className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 font-sans"
@@ -65,14 +65,14 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                     <X className="h-4 w-4" />
                 </button>
                 <div className="p-6">
-                    <h2 className="text-xl font-semibold text-center text-blue-600 mb-6 font-sans">
+                    <h2 className="text-xl font-semibold text-center text-teal-400 mb-6 font-sans">
                         Interview Prep
                     </h2>
 
                     <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm mb-1 font-sans">Role</label>
+                                <label className="block text-sm mb-1 font-sans text-teal-400">Role</label>
 
                                 <Input
                                     value={role}
@@ -82,7 +82,7 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm mb-1 font-sans">Experience</label>
+                                <label className="block text-sm mb-1 font-sans text-teal-400">Experience</label>
                                 <Input
                                     value={experience}
                                     onChange={(e) => setExperience(e.target.value)}
@@ -90,11 +90,11 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                                 />
                             </div>
                             <div>
-                                <label className=" text-sm mb-1 font-sans">Job Description</label>
+                                <label className=" text-sm mb-1 font-sans text-teal-400">Job Description</label>
                                 <Textarea
                                     value={jobDescription}
                                     onChange={(e) => setJobDescription(e.target.value)}
-                                    className="w-[530px] h-28 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans"
+                                    className="w-[530px] h-28 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 font-sans"
                                 />
                             </div>
                         </div>
@@ -102,7 +102,7 @@ export default function Modal({ onClose }: { onClose: () => void }) {
                         <Button
                             disabled={loading ? true : false}
                             onClick={onSubmit}
-                            className={`w-full bg-blue-500 cursor-pointer font-sans text-white py-2.5 rounded-md hover:bg-blue-600 transition-colors mt-6 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-teal-500 cursor-pointer font-sans text-black py-2.5 rounded-md hover:bg-teal-600 transition-colors mt-6 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             {loading ? (
                                 <div className="flex items-center justify-center">

@@ -10,7 +10,7 @@ export default function DashboardLayout({
     return (
         <SidebarProvider>
             <AppSidebar />
-            <SidebarTrigger />
+            <SidebarTrigger className="text-teal-500 hover:bg-black hover:text-teal-500 cursor-pointer" />
             {children}
         </SidebarProvider>
     );
