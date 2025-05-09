@@ -53,7 +53,7 @@ export default function FeedbackPage() {
             }
 
             console.log("Fetching feedback for interview ID:", interviewId);
-            const response = await axios.get(`/api/submit-feedback?interviewId=${interviewId}`);
+            const response = await axios.get(`https://interview-suite.vercel.app/api/submit-feedback?interviewId=${interviewId}`);
 
             if (response.data.success) {
                 console.log("Received interview data:", response.data.interview);

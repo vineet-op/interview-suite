@@ -26,7 +26,7 @@ export default function Page() {
 
     const fetchData = async () => {
         try {
-            const res = await fetch(`/api/getquestions/${interviewId}`);
+            const res = await fetch(`https://interview-suite.vercel.app/api/getquestions/${interviewId}`);
             if (!res.ok) throw new Error('Failed to fetch');
 
             const result = await res.json();

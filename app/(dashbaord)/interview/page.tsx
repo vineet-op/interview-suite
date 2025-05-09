@@ -21,7 +21,7 @@ const page = () => {
     const [interviewInfo, setInterviewInfo] = useState<InterviewInfo[]>([])
 
     async function getInterviewInfo() {
-        const response = await axios.get("http://localhost:3000/api/get-interview-info")
+        const response = await axios.get("https://interview-suite.vercel.app/api/get-interview-info")
         setInterviewInfo(response.data.interview)
     }
 
