@@ -10,6 +10,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { SignOutButton } from '@clerk/nextjs'
+
 
 // Menu items.
 const items = [
@@ -52,8 +54,11 @@ export function AppSidebar() {
                             </SidebarMenu>
                         </SidebarGroupContent>
                     </SidebarGroup>
-                </SidebarContent>
-            </Sidebar>
+                    <div className="mt-8 mx-auto bg-red-500 text-white px-8 hover:bg-red-600 py-2 font-sans rounded-2xl">
+                        <SignOutButton />
+                    </div>
+                </SidebarContent >
+            </Sidebar >
         </>
     )
 }
