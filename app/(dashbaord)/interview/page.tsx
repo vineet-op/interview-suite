@@ -5,11 +5,13 @@ import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 import Modal from '@/components/Modal/page'
 import axios from 'axios'
+import Link from 'next/link'
 
 interface InterviewInfo {
     role: string
     jobDescription: string
     createdAt: string
+    interviewId: string
 }
 
 const page = () => {
@@ -59,21 +61,17 @@ const page = () => {
                             {/* Blur effect */}
                             <div className="absolute -top-10 -right-10 w-24 h-24 bg-teal-500/10 rounded-full filter blur-xl opacity-0 group-hover:opacity-70 transition-opacity"></div>
 
-                            <div className="relative z-10">
-                                <div className="text-lg font-semibold text-teal-400 group-hover:text-teal-300 mb-2">{data?.role}</div>
+                            <div className="relative z-10 ">
+                                <div className="text-lg  font-semibold text-teal-400 group-hover:text-teal-300 mb-2">Role: {" "}{data?.role}</div>
 
-                                <div className="text-gray-400 line-clamp-3 group-hover:text-gray-300 mb-3">
-                                    {data?.jobDescription}
-                                </div>
+                                <Link href={`/interview/${data?.interviewId}/feedback`}>
+                                    <Button className=' m-2 cursor-pointer font-sans text-teal-500 border border-teal-300'>View Feedback</Button>
+                                </Link>
 
-                                <div className="text-gray-500 text-sm flex items-center">
-                                    <span className="inline-block h-2 w-2 rounded-full bg-teal-400 mr-2"></span>
-                                    {new Date(data?.createdAt).toLocaleDateString("en-GB", {
-                                        day: "2-digit",
-                                        month: "2-digit",
-                                        year: "2-digit",
-                                    })}
-                                </div>
+                                <Link href={`/interview/${data?.interviewId}`}>
+                                    <Button className=' m-2 cursor-pointer font-sans text-teal-500 border border-teal-300'>Try Again</Button>
+                                </Link>
+
                             </div>
                         </div>
                     ))}

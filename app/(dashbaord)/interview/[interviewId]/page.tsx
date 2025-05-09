@@ -81,16 +81,16 @@ export default function Page() {
     if (!data) return <div>No data found</div>;
 
     return (
-        <main className="flex min-h-screen w-screen flex-col items-center justify-center p-4 bg-gray-50">
+        <main className="flex min-h-screen w-screen flex-col items-center justify-center p-4 bg-gray-950/5">
             <div className="w-full max-w-3xl">
-                <h1 className="text-3xl font-bold text-center mb-8">Let's Begin the Test</h1>
+                <h1 className="text-3xl font-bold text-center mb-8 font-sans  text-teal-400">Let's Begin the Test</h1>
             </div>
             <div className="p-6">
-                <h1 className="text-2xl font-bold">{data.role} Interview</h1>
-                <p>{data.experience} years experience</p>
+                <div className="text-2xl font-bold font-sans text-teal-400">{data.role} Interview </div>
+                <div className='font-sans text-teal-400 font-semibold'>You have {data.experience} years experience</div>
 
                 <div className="w-full">
-                    <div className="mt-8 lg:w-6xl">
+                    <div className="mt-5 lg:w-6xl">
                         <Questions
                             questions={data.questions || []}
                             initialAnswers={Array(data.questions?.length || 0).fill('')}

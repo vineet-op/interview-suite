@@ -10,6 +10,7 @@ export async function GET(req: Request) {
         },
         select: {
             role: true,
+            interviewId: true,
             jobDescription: true,
             createdAt: true
         }

@@ -62,7 +62,7 @@ export default function Record({ onAnswer }: RecordProps) {
         }
     }, [error]);
 
-    // Process speech recognition results
+
     useEffect(() => {
         if (results && results.length > 0) {
             const fullTranscript = results
@@ -82,7 +82,7 @@ export default function Record({ onAnswer }: RecordProps) {
             <Button
                 onClick={handleRecording}
                 variant={isRecording ? "destructive" : "default"}
-                disabled={isAnswerSubmitted} // Disable after submission
+                disabled={isAnswerSubmitted}
             >
                 {isRecording ? (
                     <>
@@ -95,15 +95,6 @@ export default function Record({ onAnswer }: RecordProps) {
                 ) : isAnswerSubmitted ? "Answer Submitted" : "Start Answer"}
             </Button>
 
-            <div className="min-h-[40px] p-2 border rounded bg-gray-50">
-                {isRecording ? (
-                    <div className="text-blue-600">
-                        {interimResult || "Listening..."}
-                    </div>
-                ) : (
-                    userAnswer || "Your answer will appear here"
-                )}
-            </div>
 
             {isAnswerSubmitted && (
                 <div className="text-green-600 text-sm">

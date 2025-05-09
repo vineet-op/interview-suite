@@ -153,37 +153,37 @@ export function Questions({ questions, initialAnswers = [], role, interviewId }:
     }
 
     return (
-        <Card className="w-full shadow-lg">
+        <Card className="w-full shadow-lg bg-gray-950/5">
             <CardHeader>
-                <CardTitle>
+                <CardTitle className="text-teal-400 font-sans">
                     Question {currentQuestionIndex + 1} of {questions.length}
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-                <div className="text-xl font-medium">{questions[currentQuestionIndex]}</div>
-                <div className="min-h-[20px] p-4 rounded-md border border-gray-300 flex gap-2.5 hover:text-blue-600">
-                    <div className="font-thin cursor-pointer flex gap-2.5 ">
-                        <Volume2 onClick={() => textToSpeech(questions[currentQuestionIndex])} />
+                <div className="text-xl font-sans text-teal-400 font-medium">{questions[currentQuestionIndex]}</div>
+                <div className="min-h-[20px] p-4 rounded-md border border-gray-300 flex gap-2.5">
+                    <div className="font-thin font-sans text-white cursor-pointer flex gap-2.5 ">
+                        <Volume2 className="cursor-pointer hover:text-teal-400" onClick={() => textToSpeech(questions[currentQuestionIndex])} />
                         Tap this icon to say the question
                     </div>
                 </div>
                 {answers[currentQuestionIndex] && (
-                    <div className="p-4 rounded-md bg-gray-50 border border-gray-200">
-                        <p className="font-medium mb-1">Your Answer:</p>
-                        <p>{answers[currentQuestionIndex]}</p>
+                    <div className="p-4 rounded-md text-green-500 border border-teal-400">
+                        <p className="font-medium font-sans mb-1">Your Answer:</p>
+                        <p className="font-sans">{answers[currentQuestionIndex]}</p>
                     </div>
                 )}
             </CardContent>
             <CardFooter className="flex justify-between">
                 <div className="space-x-6 w-full">
                     {currentQuestionIndex === questions.length - 1 ? (
-                        <Button onClick={handleFinish} className="bg-green-600 hover:bg-green-700">
+                        <Button onClick={handleFinish} className="bg-green-600 px-4 py-2 w-24 hover:bg-green-700">
                             {isGenerating ? "Generating..." : "Finish"}
                         </Button>
                     ) : (
                         <div className="flex gap-2 px-1 py-4 text-center items-center justify-between">
                             <div>
-                                {/* Use a key to force remount when question changes */}
+
                                 <Record
                                     key={recordKey}
                                     onAnswer={handleAnswerSave}
@@ -193,15 +193,16 @@ export function Questions({ questions, initialAnswers = [], role, interviewId }:
                                 <Button
                                     onClick={handlePrevious}
                                     disabled={currentQuestionIndex === 0}
-                                    className="flex items-center"
+                                    className="flex items-center bg-gray-950 text-teal-400 cursor-pointer border border-teal-300"
                                 >
                                     <ArrowLeft className="h-4 w-4" />Previous
                                 </Button>
 
                                 <Button
+
                                     onClick={handleNext}
                                     disabled={currentQuestionIndex === questions.length - 1}
-                                    className="flex items-center"
+                                    className="flex items-center bg-gray-950 text-teal-400 cursor-pointer border border-teal-300"
                                 >
                                     Next <ArrowRight className="h-4 w-4" />
                                 </Button>
