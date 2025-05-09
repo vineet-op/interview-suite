@@ -4,10 +4,10 @@ import prisma from "@/app/lib/prisma"
 
 export async function GET(
     request: Request,
-    { params }: { params: { interviewId: string } }
+    context: { params: { interviewId: string } }
 ) {
     try {
-        const interviewId = params.interviewId
+        const interviewId = context.params.interviewId
 
         const interview = await prisma.interviews.findUnique({
             where: { interviewId },
