@@ -69,7 +69,7 @@ export default function FeedbackPage() {
 
     useEffect(() => {
         getFeedback();
-    }, [params.interviewId]);
+    }, []);
 
     if (loading) {
         return (
@@ -131,7 +131,7 @@ export default function FeedbackPage() {
                             <div className="flex items-center gap-2">
                                 <span>Overall Rating:</span>
                                 <Badge className={`text-lg ${feedback.overallRating >= 8 ? "bg-green-500" :
-                                        feedback.overallRating >= 6 ? "bg-yellow-500" : "bg-red-500"
+                                    feedback.overallRating >= 6 ? "bg-yellow-500" : "bg-red-500"
                                     }`}>
                                     {feedback.overallRating}/10
                                 </Badge>
@@ -168,7 +168,7 @@ export default function FeedbackPage() {
                         <CardTitle className="flex justify-between items-center">
                             <span>Question {index + 1}</span>
                             <Badge className={`${qf.rating >= 8 ? "bg-green-500" :
-                                    qf.rating >= 6 ? "bg-yellow-500" : "bg-red-500"
+                                qf.rating >= 6 ? "bg-yellow-500" : "bg-red-500"
                                 }`}>
                                 {qf.rating}/10
                             </Badge>
