@@ -7,6 +7,7 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
 import { useUser } from '@clerk/nextjs'
+import Dialog from "@/components/Dialog";
 
 export default function Home() {
 
@@ -25,6 +26,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <Dialog />
         <div className="flex flex-col lg:flex-row sm:flex-col md:flex-col p-5 gap-10">
           <Features />
         </div>
