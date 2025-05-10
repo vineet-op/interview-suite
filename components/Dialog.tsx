@@ -20,7 +20,7 @@ const Dialog = () => {
                         <HeroVideoDialog
                             className="h-1/2 w-1/2  border-teal-400 border-2 rounded-xl"
                             animationStyle="from-center"
-                            videoSrc="https://www.youtube.com/embed/spSgV8WBoK8"
+                            videoSrc="https://www.youtube.com/embed/qmGkmluogpA"
                             thumbnailSrc="https://www.intermedia-solutions.de/wp-content/uploads/video-thumbnail-01.jpg"
                             thumbnailAlt="Dummy Video Thumbnail"
                         />
