@@ -26,7 +26,7 @@ export default function Modal({ onClose }: { onClose: () => void }) {
         setLoading(true);
 
         try {
-            const res = await axios.post('http://localhost:3000/api/getquestions', {
+            const res = await axios.post('https://interview-suite.vercel.app/api/getquestions', {
                 role,
                 experience,
                 jobDescription,
