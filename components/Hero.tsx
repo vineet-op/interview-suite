@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button"
 import { SignInButton } from '@clerk/nextjs'
 import { motion } from "framer-motion"
 
-const Hero = () => {
+type HeroProps = {
+    onWatchDemoClick: () => void;
+};
+
+const Hero = ({ onWatchDemoClick }: HeroProps) => {
 
     return (
         <section id="home" className="py-24 relative overflow-hidden ">
@@ -51,6 +55,7 @@ const Hero = () => {
                             </Button>
                         </SignInButton>
                         <Button
+                            onClick={onWatchDemoClick}
                             variant="outline"
                             className="text-lg py-6 px-8 font-sans rounded-xl cursor-pointer border-gray-700 text-gray-900 hover:bg-gray-800 hover:text-white"
                         >
