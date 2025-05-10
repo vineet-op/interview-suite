@@ -9,7 +9,7 @@ import {
 async function main() {
 
     const ai = new GoogleGenAI({
-        apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+        apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY,
     });
 
     const config = {
