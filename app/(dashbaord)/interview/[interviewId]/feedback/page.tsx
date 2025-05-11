@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { SkeletonCard } from '@/components/Skeleton-card'
+import Link from 'next/link'
 
 interface FeedbackData {
     overallRating: number;
@@ -104,13 +105,13 @@ export default function FeedbackPage() {
 
     if (!interview || !interview.feedbackResponse) {
         return (
-            <div className="flex justify-center items-center min-h-screen">
-                <Card className="w-full max-w-3xl">
+            <div className="flex justify-center w-full items-center min-h-screen">
+                <Card className="w-full max-w-3xl text-center bg-teal-900">
                     <CardHeader>
-                        <CardTitle>No Feedback Available</CardTitle>
+                        <CardTitle className='font-sans text-2xl text-white'>No Feedback Available for this interview</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                        <p>No feedback data was found for this interview.</p>
+                    <CardContent className='font-sans font-bold text-white underline'>
+                        <Link href={"/interview"}>Got to Home</Link>
                     </CardContent>
                 </Card>
             </div>
@@ -121,18 +122,18 @@ export default function FeedbackPage() {
 
     return (
         <div className="container mx-auto py-8 px-4">
-            <h1 className="text-3xl font-bold mb-8">Your Interview Feedback</h1>
+            <h1 className="text-2xl font-bold font-sans mb-8 text-teal-400">Your Interview Feedback</h1>
 
-            <Card className="mb-8">
+            <Card className="mb-8 bg-gray-900/60 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden">
                 <CardHeader>
                     <CardTitle>
                         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-                            <div className='font-sans font-bold'>
-                                <span className="text-gray-950 font-sans font-ibold">Role:</span> {interview.role}
+                            <div className='font-sans font-bold text-white text-xl'>
+                                <span className="text-white font-sans font-bold">Role:</span> {interview.role}
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className='font-sans'>Overall Rating:</span>
-                                <Badge className={`text-lg ${feedback.overallRating >= 7 ? "bg-green-500" :
+                                <span className='font-sans text-white'>Overall Rating:</span>
+                                <Badge className={`text-base ${feedback.overallRating >= 7 ? "bg-green-500" :
                                     feedback.overallRating >= 5 ? "bg-yellow-500" : "bg-red-500"
                                     } font-sans`}>
                                     {feedback.overallRating}/10
@@ -144,7 +145,7 @@ export default function FeedbackPage() {
                 <CardContent>
                     <div className="mb-6">
                         <h3 className="text-xl font-semibold mb-2 text-green-600 font-sans">Strengths</h3>
-                        <ul className="list-disc pl-5 space-y-1">
+                        <ul className="list-disc pl-5 space-y-1 font-sans text-white">
                             {feedback.strengths.map((strength, index) => (
                                 <li className='font-sans' key={index}>{strength} </li>
                             ))}
@@ -153,7 +154,7 @@ export default function FeedbackPage() {
 
                     <div>
                         <h3 className="text-xl font-semibold mb-2 text-amber-600 font-sans">Areas for Improvement</h3>
-                        <ul className="list-disc pl-5 space-y-1">
+                        <ul className="list-disc pl-5 space-y-1 font-sans text-white">
                             {feedback.improvements.map((improvement, index) => (
                                 <li className='font-sans' key={index}>{improvement}</li>
                             ))}
@@ -165,10 +166,10 @@ export default function FeedbackPage() {
             <div className="text-2xl font-bold mb-4 text-teal-500 font-sans">Question-by-Question Feedback</div>
 
             {feedback.questionFeedback.map((qf, index) => (
-                <Card key={index} className="mb-6">
+                <Card key={index} className="mb-6 bg-gray-900/60 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden">
                     <CardHeader>
                         <CardTitle className="flex justify-between items-center font-sans">
-                            <span className='font-sans'>Question {index + 1}</span>
+                            <span className='font-sans text-xl text-teal-400'>Question {index + 1}</span>
                             <Badge className={`${qf.rating >= 8 ? "bg-green-500" :
                                 qf.rating >= 6 ? "bg-yellow-500" : "bg-red-500"
                                 } font-sans `}>
@@ -177,24 +178,23 @@ export default function FeedbackPage() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <div>
-                            <h3 className="font-sans font-semibold">Question:</h3>
-                            <p className="text-gray-700 font-sans">{qf.question}</p>
+                        <div className='font-sans text-white '>
+                            <p className="font-sans text-white">{qf.question}</p>
                         </div>
 
                         <div>
-                            <h3 className="font-semibold font-sans">Your Answer:</h3>
-                            <p className="text-gray-700 font-sans">{qf.answer}</p>
+                            <h3 className="font-semibold font-sans text-teal-400">Your Answer:</h3>
+                            <p className=" font-sans text-white">{qf.answer}</p>
                         </div>
 
                         <div>
-                            <h3 className="font-semibold font-sans text-blue-600">Feedback:</h3>
-                            <p className='font-sans'>{qf.feedback}</p>
+                            <h3 className=" font-sans text-teal-400 font-semibold">Feedback:</h3>
+                            <p className='font-sans text-white'>{qf.feedback}</p>
                         </div>
 
-                        <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
-                            <h3 className="font-semibold font-sans text-green-400">Example Strong Response:</h3>
-                            <p className='font-sans'>{qf.exampleResponse}</p>
+                        <div className="bg-gray-800/70 rounded-xl p-5 border border-gray-700">
+                            <h3 className="font-semibold font-sans text-teal-400">Example Strong Response:</h3>
+                            <p className='font-sans text-white'>{qf.exampleResponse}</p>
                         </div>
                     </CardContent>
                 </Card>

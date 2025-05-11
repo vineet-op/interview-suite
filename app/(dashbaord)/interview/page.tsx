@@ -6,6 +6,7 @@ import { Plus } from 'lucide-react'
 import Modal from '@/components/Modal/page'
 import axios from 'axios'
 import Link from 'next/link'
+import Card_Skeletion from '@/components/Card-Skeleton'
 
 interface InterviewInfo {
     role: string
@@ -19,10 +20,12 @@ const page = () => {
 
     const [open, setOpen] = useState<boolean>(false)
     const [interviewInfo, setInterviewInfo] = useState<InterviewInfo[]>([])
-
+    const [loading, setLoading] = useState<boolean>(false)
     async function getInterviewInfo() {
+        setLoading(true)
         const response = await axios.get("https://interview-suite.vercel.app/api/get-interview-info")
         setInterviewInfo(response.data.interview)
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -48,6 +51,18 @@ const page = () => {
             <div className='flex flex-col items-stretch w-full'>
                 <div className='text-2xl font-medium mt-10 font-sans text-teal-500'>
                     Previous Interview
+                </div>
+                <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-2 mt-5 pr-4">
+                    {loading &&
+                        <>
+                            <Card_Skeletion />
+                            <Card_Skeletion />
+                            <Card_Skeletion />
+                            <Card_Skeletion />
+                            <Card_Skeletion />
+
+                        </>
+                    }
                 </div>
                 <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-2 mt-5 pr-4">
                     {interviewInfo.map((data, index) => (
