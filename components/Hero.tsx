@@ -4,6 +4,8 @@ import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SignInButton } from '@clerk/nextjs'
 import { motion } from "framer-motion"
+import Image from "next/image"
+import Link from "next/link"
 
 type HeroProps = {
     onWatchDemoClick: () => void;
@@ -14,7 +16,7 @@ const Hero = ({ onWatchDemoClick }: HeroProps) => {
     return (
         <section id="home" className="py-24 relative overflow-hidden ">
             <div className="absolute inset-0 bg-gradient-to-b from-teal-900/20 to-gray-950/0 pointer-events-none"></div>
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-teal-500/25 rounded-full filter blur-3xl"></div>
                 <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-500/10 rounded-full filter blur-3xl"></div>
             </div>
@@ -63,7 +65,27 @@ const Hero = ({ onWatchDemoClick }: HeroProps) => {
                         </Button>
                     </div>
                 </motion.div>
+
             </div>
+
+            <div className="flex justify-center mt-14 z-30 pointer-events-auto">
+                <a
+                    href="https://peerlist.io/vineetop/project/prepsuite"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer inline-block"
+                >
+                    <Image
+                        alt="peerlistlogo"
+                        src="/peerlist.svg"
+                        width={200}
+                        height={300}
+                        className="cursor-pointer"
+                    />
+                </a>
+            </div>
+
+
         </section >
 
     )
